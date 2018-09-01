@@ -19,9 +19,9 @@ def score(hand):
 
     if hand[0][0]==hand[1][0] and hand[2][0]==hand[4][0] or hand[3][0]==hand[4][0] and hand[0][0]==hand[4][0]:
         if hand[2][0]==hand[4][0]:
-            sets.append([7,hand[2],hand[0]])
+            sets.append([7,hand[2][0],hand[0][0]])
         else:
-            sets.append([7,hand[2],hand[4]])
+            sets.append([7,hand[2][0],hand[4][0]])
 
     if hand[0][-1]==hand[1][-1]==hand[2][-1]==hand[3][-1]==hand[4][-1]:
         sets.append([6,0])
