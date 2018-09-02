@@ -4,9 +4,7 @@ def lcm(a,b):
     if a%1!=0: a=int(a)
     if b%1!=0: b=int(b)
     if a > b:
-        c=a
-        a=b
-        b=c
+        a,b=b,a
     ab = a*b
     am = [i for i in range(a,ab+1,a)]
     bm = [i for i in range(b,ab+1,b)]
