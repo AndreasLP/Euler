@@ -1,0 +1,7 @@
+#!/bin/bash
+cd ~/Desktop/Programmering/Project euler/
+git stash
+git pull
+git add .
+git commit -m 'Updates'
+git push
