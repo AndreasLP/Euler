@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int diophantine_solver(const unsigned int* D_arr,unsigned int* x_sol,unsigned int* y_sol,const int idx){
+  unsigned int b = 1,D = D_arr[idx],a = (int)round(sqrt(D));
+  int k = a*a-D,t,a_p,b_p,k_p;
+  unsigned int D_sqrt = (int)sqrt(D),m=1,m_floor,m_ceil,m_prev=0,m_current=0,m_next=0;
+  printf("a: %d, b: %d, k: %d, D: %d, D_sqrt: %d\n",a,b,k,D,D_sqrt);
+  while (k != 1){
+    if(D_sqrt >a%abs(k)){
+      t = (int)ceil(((float)D_sqrt-a%abs(k))/abs(k));
+      if(b<=1){m_floor = abs(k)*t+a%abs(b);
+      m_ceil = abs(k)*(t+1)+a%abs(b);}
+      else{m_floor=abs(k)*t+abs(k)-a%abs(k);
+        m_ceil=abs(k)*(t+1)+abs(k)-a%abs(k);};
+      printf("t: %d, m_floor: %d, m_ceil: %d\n",t,m_floor,m_ceil);
+      if(abs(m_floor*m_floor-D)<=abs(m_ceil*m_ceil-D)){m = m_floor;}
+      else {m = m_ceil;};
+    }
+    else {m = a%abs(k);};
+    printf("m: %d\n",m);
+    a_p = a; b_p = b; k_p = k;
+    a = (unsigned int)(a_p*m+D*b_p)/abs(k);
+    b = (unsigned int)(a_p + b_p*m)/abs(k);
+    k = (int)(m*m - D)/(k_p);
+    printf("a: %d, b: %d, k: %d\n",a,b,k);
+  };
+  x_sol[idx]=abs(a);
+  y_sol[idx]=abs(b);
+	return 0;
+	
+};
+int main(int argc, char **argv) {
+  int max_D = 70,max_x=0,max_x_D=0;
+  if(argc==2) max_D = atoi(argv[1]);
+  unsigned int n = max_D - (unsigned int)sqrt(max_D);
+  unsigned int* D = malloc(sizeof(unsigned int)*n);
+  unsigned int* x = malloc(sizeof(unsigned int)*n);
+  unsigned int* y = malloc(sizeof(unsigned int)*n);
+  if(D==NULL||x==NULL||y==NULL) return -1;
+  for(int idx=0,i=2, sqrt_i=0;i<=max_D;i++){
+    sqrt_i = (int)sqrt(i);
+    if(sqrt_i*sqrt_i!=i) {
+      D[idx]=i;
+      //printf("D[%d]=%d\n",idx,i);
+      //diophantine_solver(D,x,y,idx);
+      //if(0==diophantine_solver(D,x,y,idx)) printf("x: %7d D: %4d y:%d\n",x[idx],D[idx],y[idx]);
+      //if(x[idx]>max_x) {
+      //  max_x=x[idx];
+      //  max_x_D=D[idx];
+      idx++;
+      };
+      
+    }; 
+    int idx = 58;
+    printf("D: %d\n",D[idx]);
+    diophantine_solver(D,x,y,idx); 
+    printf("x: %d\y: %d\nD: %d\n",x[idx],y[idx],D[idx]);
+ // for(int idx=0;idx<n;idx++) {
+ //   printf("D[%d]=%d\n",idx,D[idx]);
+ // };
+  //printf("Max x: %d\n",max_x);
+  //printf("D    : %d\n",max_x_D);
+  free(D);
+  free(x);
+  free(y);
+  return 0;
+}
