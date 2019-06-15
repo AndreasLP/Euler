@@ -65,7 +65,7 @@ def primes_from_2to(n):
     return np.r_[2, 3, ((3*np.nonzero(sieve)[0]+1) | 1)]
 
 
-def rwh_primes1(n):
+def rwh_primes(n):
     # https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188
     """ Returns  a list of primes < n """
     sieve = [True] * int(n/2)
