@@ -1,4 +1,4 @@
-file=problem15
+file=problem28
 input = $(patsubst %.c,%.o,$(wildcard *.c))
 CC=gcc
 CFLAGS=-Wall -Wextra -std=c99 -g
